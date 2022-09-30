@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:peliculas_ecolls/models/movie.dart';
-import 'package:peliculas_ecolls/ui/widgets/casting_cards.dart';
+import 'package:peliculas_ecolls/sqflite/app_basedatos.dart';
+import 'package:peliculas_ecolls/ui/widgets/widgets.dart';
 
 class DetailsScreen extends StatelessWidget {
   const DetailsScreen({super.key});
@@ -9,6 +12,15 @@ class DetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Movie movie = ModalRoute.of(context)?.settings.arguments as Movie;
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          Map<String, dynamic> mapjson = movie.toJson();
+          final jsonString = json.encode(mapjson).toString();
+          int algo = await DB.saveMovie(json: jsonString);
+          print(algo);
+          // print(jsonString);
+        },
+      ),
       body: CustomScrollView(
         slivers: [
           _CustomAppBar(movie),
@@ -79,14 +91,17 @@ class _PosterAndTitle extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20),
       child: Row(
         children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: FadeInImage(
-              fit: BoxFit.cover,
-              placeholder: AssetImage('assets/loading.gif'),
-              image: NetworkImage(movie.fullPosterImg),
-              height: 150,
-              width: 110,
+          Hero(
+            tag: movie.heroId!,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: FadeInImage(
+                fit: BoxFit.cover,
+                placeholder: AssetImage('assets/loading.gif'),
+                image: NetworkImage(movie.fullPosterImg),
+                height: 150,
+                width: 110,
+              ),
             ),
           ),
           SizedBox(

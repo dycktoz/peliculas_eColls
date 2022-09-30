@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:peliculas_ecolls/providers/movies_provider.dart';
+import 'package:peliculas_ecolls/providers/ui_provider.dart';
 import 'package:peliculas_ecolls/routes/routes.dart';
 import 'package:provider/provider.dart';
 
@@ -13,6 +14,9 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => MoviesProvider(),
           lazy: false,
+        ),
+        ChangeNotifierProvider(
+          create: (_) => UiProvider(),
         )
       ],
       child: MyApp(),

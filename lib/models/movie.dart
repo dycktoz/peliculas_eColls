@@ -37,6 +37,7 @@ class Movie {
   double voteAverage;
   int voteCount;
 
+  String? heroId;
   get fullPosterImg {
     if (this.posterPath != null)
       return 'https://image.tmdb.org/t/p/w500${this.posterPath}';
@@ -61,10 +62,53 @@ class Movie {
         overview: json["overview"],
         popularity: json["popularity"].toDouble(),
         posterPath: json["poster_path"],
-        releaseDate: json["release_date"],
+        // releaseDate: json["release_date"],
         title: json["title"],
         video: json["video"],
         voteAverage: json["vote_average"].toDouble(),
         voteCount: json["vote_count"],
       );
+
+  Map<String, dynamic> toJson() => {
+        "adult": adult,
+        "backdrop_path": backdropPath,
+        "genre_ids": List<dynamic>.from(genreIds.map((x) => x)),
+        "id": id,
+        "original_language": originalLanguage,
+        "original_title": originalTitle,
+        "overview": overview,
+        "popularity": popularity,
+        "poster_path": posterPath,
+        "release_date": releaseDate,
+        "title": title,
+        "video": video,
+        "vote_average": voteAverage,
+        "vote_count": voteCount,
+      };
+
+  Movie fromJsonWithReplace(Map<String, dynamic> json) {
+    return Movie(
+      adult: _getbool(json['"adult"']),
+      backdropPath: json['"backdrop_path"'].replaceAll('"', ""),
+      genreIds: json["genre_ids"].replaceAll('"', ""),
+      id: json["id"].replaceAll('"', ""),
+      originalLanguage: json["original_language"].replaceAll('"', ""),
+      originalTitle: json["original_title"].replaceAll('"', ""),
+      overview: json["overview"].replaceAll('"', ""),
+      popularity: json["popularity"].toDouble().replaceAll('"', ""),
+      posterPath: json["poster_path"].replaceAll('"', ""),
+      // releaseDate: json["release_date"],
+      title: json["title"].replaceAll('"', ""),
+      video: json["video"].replaceAll('"', ""),
+      voteAverage: json["vote_average"].toDouble().replaceAll('"', ""),
+      voteCount: json["vote_count"].replaceAll('"', ""),
+    );
+  }
+
+  bool _getbool(String str) {
+    if (str == "true") {
+      return true;
+    }
+    return false;
+  }
 }

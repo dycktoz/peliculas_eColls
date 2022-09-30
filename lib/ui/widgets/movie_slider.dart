@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:peliculas_ecolls/models/movie.dart';
 
 class MovieSlider extends StatefulWidget {
-  final String? title;
+  final String title;
   final List<Movie> movies;
   final Function onNextPage;
   const MovieSlider(
-      {super.key, this.title, required this.movies, required this.onNextPage});
+      {super.key,
+      required this.title,
+      required this.movies,
+      required this.onNextPage});
 
   @override
   State<MovieSlider> createState() => _MovieSliderState();
@@ -44,7 +47,7 @@ class _MovieSliderState extends State<MovieSlider> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20, vertical: 2),
               child: Text(
-                this.widget.title!,
+                this.widget.title,
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ),
@@ -53,8 +56,12 @@ class _MovieSliderState extends State<MovieSlider> {
                 controller: scrollController,
                 scrollDirection: Axis.horizontal,
                 itemCount: widget.movies.length,
-                itemBuilder: (_, int index) =>
-                    _MoviePoster(widget.movies[index])),
+                itemBuilder: (context, int index) {
+                  widget.movies[index].heroId =
+                      '${widget.title}-${widget.movies[index].id}';
+                  return _MoviePoster(
+                      widget.movies[index], widget.movies[index].heroId!);
+                }),
           )
         ],
       ),
@@ -63,8 +70,9 @@ class _MovieSliderState extends State<MovieSlider> {
 }
 
 class _MoviePoster extends StatelessWidget {
+  final String heroId;
   final Movie movie;
-  const _MoviePoster(this.movie);
+  const _MoviePoster(this.movie, this.heroId);
 
   @override
   Widget build(BuildContext context) {
@@ -77,21 +85,24 @@ class _MoviePoster extends StatelessWidget {
           GestureDetector(
             onTap: () =>
                 Navigator.pushNamed(context, 'details', arguments: movie),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(20),
-              child: FadeInImage(
-                  width: 130,
-                  height: 190,
-                  fit: BoxFit.cover,
-                  placeholder: AssetImage('assets/no-image.jpg'),
-                  image: NetworkImage(movie.fullPosterImg!)),
+            child: Hero(
+              tag: movie.heroId!,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: FadeInImage(
+                    width: 130,
+                    height: 190,
+                    fit: BoxFit.cover,
+                    placeholder: AssetImage('assets/no-image.jpg'),
+                    image: NetworkImage(movie.fullPosterImg!)),
+              ),
             ),
           ),
           SizedBox(
             height: 5,
           ),
           Text(
-            movie.title,
+            movie.title!,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             textAlign: TextAlign.center,
