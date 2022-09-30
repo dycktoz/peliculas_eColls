@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:peliculas_ecolls/models/movie_save.dart';
 
 class FavoriteCard extends StatelessWidget {
-  // final Movie movie;
-  const FavoriteCard({super.key});
+  final MovieSave movie;
+  const FavoriteCard({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +18,8 @@ class FavoriteCard extends StatelessWidget {
             child: FadeInImage(
               fit: BoxFit.cover,
               placeholder: AssetImage('assets/loading.gif'),
-              image: AssetImage('assets/loading.gif'),
-              // image: NetworkImage(movie.fullPosterImg),
+              // image: AssetImage('assets/loading.gif'),
+              image: NetworkImage(movie.fullPosterImg),
               height: 150,
               width: 110,
             ),
@@ -41,8 +42,10 @@ class FavoriteCard extends StatelessWidget {
                     SizedBox(
                       width: 5,
                     ),
-                    Text(
-                      'ajsdkasd',
+                    Expanded(
+                      child: Text(
+                        movie.title!,
+                      ),
                     )
                   ],
                 ),

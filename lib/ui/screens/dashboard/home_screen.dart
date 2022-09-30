@@ -11,14 +11,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () =>
-                  showSearch(context: context, delegate: MovieSearchDelegate()),
-              icon: Icon(Icons.search_outlined))
-        ],
-      ),
       backgroundColor: Color.fromARGB(255, 250, 251, 255),
       body: _HomePageBody(),
       bottomNavigationBar: CustomBottomNavigation(),

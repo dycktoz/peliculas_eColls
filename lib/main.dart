@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Peliculas eColls App',
-      initialRoute: 'home',
+      initialRoute: 'register',
       routes: appRoutes,
     );
   }

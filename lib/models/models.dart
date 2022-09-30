@@ -1,3 +1,6 @@
+export 'package:peliculas_ecolls/models/movie_save.dart';
+export 'package:peliculas_ecolls/models/usuario.dart';
+
 export 'package:peliculas_ecolls/models/search_response.dart';
 
 export 'package:peliculas_ecolls/models/credits_response.dart';

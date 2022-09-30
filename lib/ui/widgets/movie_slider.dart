@@ -94,7 +94,7 @@ class _MoviePoster extends StatelessWidget {
                     height: 190,
                     fit: BoxFit.cover,
                     placeholder: AssetImage('assets/no-image.jpg'),
-                    image: NetworkImage(movie.fullPosterImg!)),
+                    image: NetworkImage(movie.fullPosterImg)),
               ),
             ),
           ),
@@ -102,7 +102,7 @@ class _MoviePoster extends StatelessWidget {
             height: 5,
           ),
           Text(
-            movie.title!,
+            movie.title,
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
             textAlign: TextAlign.center,

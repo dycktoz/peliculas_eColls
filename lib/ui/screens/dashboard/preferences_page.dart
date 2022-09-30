@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:peliculas_ecolls/ui/widgets/widgets.dart';
 
 class PreferencesPage extends StatelessWidget {
@@ -9,7 +10,7 @@ class PreferencesPage extends StatelessWidget {
     return SingleChildScrollView(
       child: Column(
         children: [
-          FavoriteCard(),
+          // FavoriteCard(movie: MovieSave()),
           CardContainer(
               child: Column(
             children: [
